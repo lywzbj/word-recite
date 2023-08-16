@@ -1,0 +1,8 @@
+.error{
+    color: red;
+}
+
+.app {
+    display: flex;
+    justify-content: center;
+}
