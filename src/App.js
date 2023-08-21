@@ -23,7 +23,7 @@ function App() {
         status === 'init' ? <WordInput submitWords={outSetWords} /> : null
       }
       {
-        status === 'reciting' ? <WordRecite/> : null
+        status === 'reciting' ? <WordRecite outWords={words} /> : null
       }
     </div>
   );

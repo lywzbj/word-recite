@@ -1,8 +1,34 @@
 
 import {Button} from "react-bootstrap";
+import {translate} from "../api/recite";
+import {useEffect, useState} from "react";
 
 
-export default function WordRecite() {
+export default function WordRecite({outWords}) {
+
+
+    const [words,setWords] = useState([])
+
+
+    useEffect( () => {
+        setWords(outWords)
+        recite(outWords[0])
+    })
+
+
+    function recite(word) {
+        console.log(`背诵单词:${word}`)
+
+     let parameter = {word:word}
+
+        translate(parameter).then(res => {
+            console.log(res)
+        } )
+    }
+
+
+
+
     return (
         <>
           <div style={{
