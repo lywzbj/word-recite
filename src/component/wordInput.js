@@ -1,4 +1,4 @@
-import {InputGroup,Form,Button,Alert} from "react-bootstrap";
+import {InputGroup,Form,Button} from "react-bootstrap";
 import {useState} from "react";
 
 
@@ -10,22 +10,18 @@ export default function WordInput({submitWords}) {
     const [inputValue,setInputValue] = useState("")
 
     function handleInputChange(event) {
-        console.log(event.target.value)
         setInputValue(event.target.value)
     }
 
     function  submit() {
         // 拆分为数组
         let split = inputValue.split(',');
-        console.log(split)
         if(split === null || split.length === 0) {
             return
         }
         for (let i = 0; i < split.length; i++) {
             let word = split[i]
-            console.log(word)
             let isWord = checkWord(word);
-            console.log(isWord)
             if (!isWord) {
                  alert(`${word}不是一个单词`)
                 return;

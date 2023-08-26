@@ -8,23 +8,45 @@ export default function WordRecite({outWords}) {
 
 
     const [words,setWords] = useState([])
+    const [currentWord,setCurrentWord] = useState('')
+    const [videoUrlUS,setVideoUrlUS] = useState('')
+    const [videoUrlUK,setVideoUrlUk] = useState('')
+    const [index,setIndex] = useState(0)
 
 
     useEffect( () => {
         setWords(outWords)
-        recite(outWords[0])
+        setCurrentWord(outWords[index])
     })
 
 
-    function recite(word) {
-        console.log(`背诵单词:${word}`)
+    function next() {
 
+        let newIndex = index + 1;
+        if(newIndex > words.length) {
+            alert("单词已经背诵完成")
+            return;
+        }
+        setIndex(newIndex)
+        let word =  words[newIndex]
+        setCurrentWord(word)
+        // 请求接口
+        recite();
+    }
+
+
+    function recite() {
+        let word = currentWord
      let parameter = {word:word}
-
         translate(parameter).then(res => {
-            console.log(res)
+            let data =  res.data.data
+            setVideoUrlUk(() => data.videoUrlUK)
+            setVideoUrlUS(() => data.videoUrlUS)
         } )
     }
+
+
+
 
 
 
@@ -36,11 +58,22 @@ export default function WordRecite({outWords}) {
               flexDirection: 'column'
           }}>
               <div>
-                  <Button variant="primary" size="lg">发音</Button>
+                  <label>美音</label>
+                  <audio
+                      controls
+                      src={videoUrlUS}
+                  />
+              </div>
+              <div>
+                  <label>英音</label>
+                  <audio
+                      controls
+                      src={videoUrlUK}
+                  />
               </div>
 
               <div>
-                  <Button variant="success" size="lg">下一个</Button>
+                  <Button variant="success" size="lg"  onClick={() => next()} >下一个</Button>
               </div>
 
               <div>
