@@ -17,13 +17,24 @@ function App() {
     setWords(words)
     setStatus("reciting")
   }
+
+
+  function complete() {
+    setStatus('complete')
+  }
+
+
+
   return (
     <div className={style.app}>
       {
         status === 'init' ? <WordInput submitWords={outSetWords} /> : null
       }
       {
-        status === 'reciting' ? <WordRecite outWords={words} /> : null
+        status === 'reciting' ? <WordRecite outWords={words} completeListener={() => complete()} /> : null
+      }
+      {
+        status === 'complete' ? <p>背诵完成</p> : null
       }
     </div>
   );

@@ -4,7 +4,7 @@ import {translate} from "../api/recite";
 import {useEffect, useState} from "react";
 
 
-export default function WordRecite({outWords}) {
+export default function WordRecite({outWords,completeListener}) {
 
 
     const [words,setWords] = useState([])
@@ -25,6 +25,7 @@ export default function WordRecite({outWords}) {
         let newIndex = index + 1;
         if(newIndex > words.length) {
             alert("单词已经背诵完成")
+            completeListener()
             return;
         }
         setIndex(newIndex)
